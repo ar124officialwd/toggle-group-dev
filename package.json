@@ -1,6 +1,6 @@
 {
   "name": "toggle-group-dev",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ToggleGroup - A map like data structure to handle multiple toggle(-able) elements",
   "main": "index.js",
   "dependencies": {},
