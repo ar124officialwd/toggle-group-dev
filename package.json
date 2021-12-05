@@ -5,16 +5,24 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-typescript": "^7.16.0",
     "@tsconfig/node10": "^1.0.8",
     "@types/jasmine": "^3.10.2",
+    "babel-minify": "^0.5.1",
+    "babel-preset-minify": "^0.5.1",
     "jasmine": "^3.10.0",
     "jsdoc": "^3.6.7",
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "build": "tsc",
-    "doc": "jsdoc -d docs dist/node/index.js",
-    "build:doc": "npm run build && npm run doc",
+    "build": "npm run tsc && npm run babel",
+    "doc": "npm run build && npm run jsdoc",
+    "tsc": "tsc",
+    "babel": "babel src -x '.ts' -d dist/node --no-comments",
+    "jsdoc": "jsdoc -d docs dist/node/index.js",
     "test": ""
   },
   "repository": {
