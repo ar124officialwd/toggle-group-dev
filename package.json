@@ -1,0 +1,35 @@
+{
+  "name": "toggle-group-dev",
+  "version": "1.0.0",
+  "description": "ToggleGroup - A map like data structure to handle multiple toggle(-able) elements",
+  "main": "index.js",
+  "dependencies": {
+    "jsdoc": "^3.6.7"
+  },
+  "devDependencies": {
+    "@tsconfig/node10": "^1.0.8",
+    "@types/jasmine": "^3.10.2",
+    "jasmine": "^3.10.0",
+    "typescript": "^4.5.2"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ar124official2019/toggle-group-dev.git"
+  },
+  "keywords": [
+    "toggle",
+    "switch",
+    "on-off",
+    "open-close",
+    "data-structure"
+  ],
+  "author": "Ahmad Raza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ar124official2019/toggle-group-dev/issues"
+  },
+  "homepage": "https://github.com/ar124official2019/toggle-group-dev#readme"
+}
