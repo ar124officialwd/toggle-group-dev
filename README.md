@@ -12,6 +12,11 @@ A map like data structure to handle multiple toggle(-able) elements
 
 I wrote this structure and found it useful in front-end Angular application. I use this to keep my views binded togathered and yet easily switched, based on state of `ToggleGroup` object. Examples are shared at end.
 
+## Installation
+```sh
+npm install toggle-group
+```
+
 ## Basic Usage
 
 ### importing 
