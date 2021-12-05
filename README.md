@@ -19,10 +19,15 @@ npm install toggle-group
 
 ## Basic Usage
 
-### importing 
+### Importing 
 **NodeJS**
 ```js
   const { ToggleGroup, Toggle } = require('toggle-group');
+```
+
+**Typescript**
+```ts
+  import { ToggleGroup, Toggle } from 'toggle-group';
 ```
 
 ### Creating object
@@ -64,6 +69,9 @@ npm install toggle-group
 
 ### Properties and methods (operations)
 Please refer to [docs here](https://ar124official2019.github.io/toggle-group-dev/).
+
+### Demo
+A simple live demo is available at Stackblitz [here](https://stackblitz.com/edit/angular-ivy-cksjpu?file=src/app/app.component.ts).
 
 ## Contribution
 Kind of contrbution like improving code, fixing bugs, improving docs is highly appreciated.
