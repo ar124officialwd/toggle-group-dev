@@ -1,8 +1,10 @@
+import { IToggle } from "./toggle.interface";
+
 /**
  * ToggleGroup
  * A simple data structure to group and handle multiple toggles
  */
-class ToggleGroup {
+export class ToggleGroup {
   /**
    * Collection of toggles -
    * Please don't access this directly (if using JS)
@@ -15,10 +17,13 @@ class ToggleGroup {
    * @param { IToggle[] | string[] } toggles Existing toggles (key-value pairs / string[]) to initialize group with, You may pass string array as well, in such case creates toggles by using string's as keys and sets value of each to `initalValue`.
    * @param { boolean } initalValue default value to be set, if toggles are to be created from string keys
    */
-  constructor(toggles: IToggle[] | string[] = [], initalValue: boolean = false) {
+  constructor(
+    toggles: IToggle[] | string[] = [],
+    initalValue: boolean = false
+  ) {
     toggles.forEach((item: IToggle | string) => {
       let toggle: IToggle;
-      if (item + '' === item) toggle = { key: item, value: initalValue };
+      if (item + "" === item) toggle = { key: item, value: initalValue };
       else toggle = item as IToggle;
 
       // avoid duplicates
@@ -31,13 +36,13 @@ class ToggleGroup {
    * Create one or more new toggle
    * @param { string | string[] } keys
    * array of keys to create toggles for or a string for creating single new toggle
-   * 
+   *
    * @param { boolean } initalValue default value to initalize toggle(s) with
    */
   createToggle(keys: string | string[], initalValue = false) {
     const toggles: IToggle[] = [];
 
-    if (typeof keys === 'string') {
+    if (typeof keys === "string") {
       toggles.push({ key: keys, value: initalValue });
     } else {
       for (const key of keys) {
@@ -232,38 +237,3 @@ class ToggleGroup {
     this._toggles = toggles;
   }
 }
-
-/**
- * Simple key-value pair
- * @type
- */
-interface IToggle {
-  key: string;
-  value: boolean
-};
-
-/**
- * A simple key-value pair class, to re-enforce IToggle
- * @class
- * @implements IToggle
- */
-class Toggle implements IToggle {
-  key: string;
-  value: boolean;
-
-  constructor(key: string, value: boolean) {
-    this.key = key;
-    this.value = value;
-  }
-
-  /**
-   * Create an object from an object that is of type IToggle
-   * @param { IToggle } object An object that is of type IToggle
-   * @returns { Toggle } a Toggle object
-   */
-  static from(object: IToggle): Toggle {
-    return new Toggle(object.key, object.value);
-  }
-}
-
-export = { ToggleGroup, Toggle };
