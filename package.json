@@ -15,15 +15,18 @@
     "babel-preset-minify": "^0.5.1",
     "jasmine": "^3.10.0",
     "jsdoc": "^3.6.7",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "build": "npm run tsc && npm run babel",
+    "build": "npm run test && npm run tsc && npm run babel",
     "doc": "npm run build && npm run jsdoc",
+    "test": "npm run jasmine",
+
     "tsc": "tsc",
     "babel": "babel src -x '.ts' -d dist/node --no-comments",
     "jsdoc": "jsdoc -d docs dist/node/index.js",
-    "test": ""
+    "jasmine": "ts-node node_modules/jasmine/bin/jasmine.js"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,5 @@
-import { ToggleGroup } from './toggle-group';
+import "jasmine";
+import { ToggleGroup } from './index';
 
 describe("ToggleGroup", () => {
   it("should create instances", () => {
@@ -38,11 +39,9 @@ describe("ToggleGroup", () => {
     const t2 = new ToggleGroup([{ key: 'bad', value: true }], false);
     
     t1.setValue('good', true);
-    console.log(t1.toggles);
     expect(t1.getValue('good')).toBeTruthy();
 
     t2.setValue('bad', false);
-    console.log(t2.toggles);
     expect(t2.getValue('bad')).toBeFalse();
   });
 
