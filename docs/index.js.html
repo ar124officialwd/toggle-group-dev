@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+/**
+ * ToggleGroup
+ * A simple data structure to group and handle multiple toggles
+ */
+class ToggleGroup {
+    /**
+     * Create a new instance of ToggleGroup
+     * @param { IToggle[] | string[] } toggles Existing toggles (key-value pairs / string[]) to initialize group with, You may pass string array as well, in such case creates toggles by using string's as keys and sets value of each to `initalValue`.
+     * @param { boolean } initalValue default value to be set, if toggles are to be created from string keys
+     */
+    constructor(toggles = [], initalValue = false) {
+        /**
+         * Collection of toggles -
+         * Please don't access this directly (if using JS)
+         * @type IToggle[]
+         */
+        this._toggles = [];
+        toggles.forEach((item) => {
+            let toggle;
+            if (item + '' === item)
+                toggle = { key: item, value: initalValue };
+            else
+                toggle = item;
+            // avoid duplicates
+            if (!this._toggles.find((i) => i.key == toggle.key))
+                this._toggles.push(toggle);
+        });
+    }
+    /**
+     * Create one or more new toggle
+     * @param { string | string[] } keys
+     * array of keys to create toggles for or a string for creating single new toggle
+     *
+     * @param { boolean } initalValue default value to initalize toggle(s) with
+     */
+    createToggle(keys, initalValue = false) {
+        const toggles = [];
+        if (typeof keys === 'string') {
+            toggles.push({ key: keys, value: initalValue });
+        }
+        else {
+            for (const key of keys) {
+                toggles.push({ key, value: initalValue });
+            }
+        }
+        for (const toggle of toggles) {
+            const existing = this._toggles.find((i) => i.key === toggle.key);
+            if (!existing) {
+                this._toggles.push(toggle);
+            }
+        }
+    }
+    /**
+     * Sets the value true to a toggle -
+     * alias to `setValue(key, false)`
+     * @param { string } key Unique key of the toggle
+     */
+    close(key) {
+        return this.setValue(key, false);
+    }
+    /**
+     * Close all items -
+     * Sets value `false` to all of the toggles
+     * @returns { ToggleGroup } this
+     */
+    closeAll() {
+        return this.setAll(false);
+    }
+    /**
+     * Get collection of keys which are currenty closed (Toggled on)
+     * @returns { string[] }
+     */
+    get closedKeys() {
+        return this._toggles.filter((i) => !i.value).map((i) => i.key);
+    }
+    /**
+     * open (set value `true`) a toggle and drop (set value to `false`) rest
+     * @param { ToggleGroup } key Unique key of the toggle
+     */
+    dropOpen(key) {
+        return this.setAll(false).open(key);
+    }
+    /**
+     * get number of toggles which are currently closed (have value `false`)
+     * @returns { number } count of closed
+     */
+    getCloseCount() {
+        return this._toggles.filter((i) => !i.value).length;
+    }
+    /**
+     * get number of toggles which are currently opened (have value `true`)
+     * @returns { number } count of open
+     */
+    getOpenCount() {
+        return this._toggles.filter((i) => i.value).length;
+    }
+    /**
+     * Get Toggle object, key value pair
+     * @param { IToggle } key Key to get toggle of
+     */
+    getToggle(key) {
+        let toggle = this.toggles.find((i) => i.key == key);
+        if (!toggle) {
+            toggle = {
+                key,
+                value: false,
+            };
+            this.toggles.push(toggle);
+        }
+        return toggle;
+    }
+    /**
+     * Get current value of toggle by given key
+     * @param { string } key Key to get value of toggle
+     * @returns boolean value of the toggle, `undefined` if toggle doesn't exist
+     */
+    getValue(key) {
+        const item = this.toggles.find((i) => i.key == key);
+        return item ? item.value : undefined;
+    }
+    /**
+     * Sets the value true to a toggle -
+     * alias to setValue(key, true)
+     * @param { string } key Unique key of the toggle
+     * @returns { ToggleGroup } this
+     */
+    open(key) {
+        return this.setValue(key, true);
+    }
+    /**
+     * Sets the value true to a toggle -
+     * alias to setValue(key, true)
+     * @param { string } key Unique key of the toggle
+     * @returns { ToggleGroup } this
+     */
+    openAll() {
+        return this.setAll(true);
+    }
+    /**
+     * Get collection of keys which are currenty open (Toggled on)
+     * @returns { string[] }
+     */
+    get openKeys() {
+        return this._toggles.filter((i) => i.value).map((i) => i.key);
+    }
+    /**
+     * Set the value of all toggle
+     * @param { boolean } value value to be set
+     * @returns { ToggleGroup } this
+     */
+    setAll(value) {
+        for (const toggle of this.toggles) {
+            toggle.value = value;
+        }
+        return this;
+    }
+    /**
+     * Set the value of toggle against given key
+     * @param { string } key Unique name of the toggle
+     * @param { boolean } value value to be set
+     * @returns { ToggleGroup } this
+     */
+    setValue(key, value) {
+        let toggle = this.toggles.find((i) => i.key == key);
+        if (!toggle) {
+            toggle = {
+                key,
+                value: value,
+            };
+            this.toggles.push(toggle);
+        }
+        else {
+            toggle.value = value;
+        }
+        return this;
+    }
+    /**
+     * Toggle value of given key
+     * @param { string } key Unique name of the toggle
+     * @returns { ToggleGroup } this
+     */
+    toggle(key) {
+        let toggle = this.toggles.find((i) => i.key == key);
+        if (!toggle) {
+            toggle = {
+                key,
+                value: true,
+            };
+            this.toggles.push(toggle);
+        }
+        else {
+            toggle.value = !toggle.value;
+        }
+        return this;
+    }
+    /**
+     * Get a copy of internally stored toggles
+     * @getter
+     */
+    get toggles() {
+        return this._toggles.map((i) => i);
+    }
+    /**
+     * Restore toggles
+     * @param { IToggle[] } toggles Array of existing toggle(Toggle objects)
+     * @setter
+     */
+    set toggles(toggles) {
+        this._toggles = toggles;
+    }
+}
+;
+/**
+ * A simple key-value pair class, to re-enforce IToggle
+ * @class
+ * @implements IToggle
+ */
+class Toggle {
+    constructor(key, value) {
+        this.key = key;
+        this.value = value;
+    }
+    /**
+     * Create an object from an object that is of type IToggle
+     * @param { IToggle } object An object that is of type IToggle
+     * @returns { Toggle } a Toggle object
+     */
+    static from(object) {
+        return new Toggle(object.key, object.value);
+    }
+}
+module.exports = { ToggleGroup, Toggle };
+//# sourceMappingURL=index.js.map</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Toggle.html">Toggle</a></li><li><a href="ToggleGroup.html">ToggleGroup</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Dec 05 2021 13:13:59 GMT+0500 (Pakistan Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
