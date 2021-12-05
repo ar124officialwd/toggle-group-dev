@@ -1,6 +1,6 @@
 {
   "name": "toggle-group-dev",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ToggleGroup - A map like data structure to handle multiple toggle(-able) elements",
   "main": "index.js",
   "dependencies": {},
@@ -22,7 +22,6 @@
     "build": "npm run test && npm run tsc && npm run babel",
     "doc": "npm run build && npm run jsdoc",
     "test": "npm run jasmine",
-
     "tsc": "tsc",
     "babel": "babel src -x '.ts' -d dist/node --no-comments",
     "jsdoc": "jsdoc -d docs dist/node/index.js",
