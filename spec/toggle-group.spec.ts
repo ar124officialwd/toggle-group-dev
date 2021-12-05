@@ -1,5 +1,5 @@
 import "jasmine";
-import { ToggleGroup } from './index';
+import { ToggleGroup } from '../src/index';
 
 describe("ToggleGroup", () => {
   it("should create instances", () => {

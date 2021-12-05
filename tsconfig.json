@@ -20,5 +20,5 @@
     ],
   },
 
-  "exclude": ["*.spec.ts", "*.d.ts", "dist", "doc"]
+  "exclude": ["*.spec.ts", "*.d.ts", "dist", "docs", "spec"]
 }
